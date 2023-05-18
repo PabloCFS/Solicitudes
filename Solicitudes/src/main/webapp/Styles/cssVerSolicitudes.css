@@ -1,0 +1,233 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 may. 2023, 09:41:12
+    Author     : pablo.elizondo
+*/
+
+@font-face{
+    font-family: MontI;
+    src: url("../Sources/Fonts/Montserrat-Italic-VariableFont_wght.ttf");
+}
+
+@font-face{
+    font-family: Mont;
+    src: url("../Sources/Fonts/Montserrat-VariableFont_wght.ttf")
+}
+
+/*Body de la pagina*********************************/
+.body-Menu{
+    display: block;
+    position: static;
+    
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    background-image: url("../Sources/Images/FondoIng.jpg");
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+    background-attachment: fixed;
+}
+
+.section-VerSolicitudes{
+    display: block;
+    position: static;
+    
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px;
+    
+    width: 98%;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    
+}
+
+.containers{
+    display: block;
+    position: static;
+    
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px;
+    
+    width: 98%;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+#labelTitulo{
+    display: block;
+    position: static;
+    
+    margin: 3% 0px 0px 3%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    font-weight: 600;
+    font-size: 200%;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+#container2{
+    display: flex;
+}
+/*-------------------------------DROPDOWN*/
+.btn-group{
+    display: block;
+    position: static;
+    
+    margin: 3% 0px 0px 3%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.dropdown-toggle{
+    background-color: #21B5EC;
+}
+
+.labelDropdown{
+    font-weight: 600;
+    font-size: 100%;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+.dropdown-menu{
+    background-color: #21B5EC;
+}
+
+.btn-link{
+    text-decoration: none;
+    
+    font-weight: 600;
+    font-size: 100%;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+/*-------------------------------MODAL*/
+
+.divModal{
+    display: block;
+    position: static;
+    
+    margin: 3% 0px 0px 70%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.boton-modal{
+    color: #FFFFFF;
+    background-color: #6E6E6E;
+}
+
+/*----Modal*/
+.modal-header{
+    color: #FFFFFF;
+    background-color: RGB(12, 71, 167);
+}
+
+.form-NuevaSolicitud{
+   background-color: RGB(33, 181, 236, 0.1);
+}
+
+#tipoDeLista{
+    color: RGB(33, 181, 236, 0.1);
+}
+
+
+.btn-outline-success{
+    color: #000000;
+    background-color: #B8E8B4;
+}
+
+.btn-outline-danger{
+    color: #000000;
+    background-color: #E8B4B4;    
+}
+
+.modal-footer{
+    background-color: RGB(33, 181, 236, 0.6);
+}
+
+/*-------------------------------TABLA*/
+.divTable{
+    display: block;
+    position: static;
+    
+    margin: 1% 1% 0px 1%;
+    padding: 0px 0px 0px 0px;
+
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+#tableSolicitudes{
+    background-color: RGB(110,110,110,0.9);
+}
+
+.tr-head-descipcion{
+    color: #000000;
+    background-color: RGB(33, 181, 236, 0.8);
+}
+
+.tr-head{
+    color: #000000;
+    background-color: RGB(33, 181, 236, 0.6);
+}
+
+.tr-tbody{
+    color: #FFFFFF;
+}
+
+/*    border: 1px yellow solid !important;*/
+
+
+
+
