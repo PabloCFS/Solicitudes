@@ -5,6 +5,7 @@ com\cfscr\solicitudes\logic\Fechas.class
 com\cfscr\solicitudes\service\ServiceUsuario.class
 com\cfscr\solicitudes\entities\Mensaje.class
 com\cfscr\solicitudes\service\ServiceListasImpl.class
+com\cfscr\solicitudes\controllers\AgregarMensaje.class
 com\cfscr\solicitudes\connection\DAORol.class
 main\NewMain.class
 com\cfscr\solicitudes\connection\DAOTipoSolicitud.class
@@ -26,5 +27,6 @@ com\cfscr\solicitudes\controllers\Login.class
 com\cfscr\solicitudes\service\ServiceListas.class
 com\cfscr\solicitudes\entities\Usuario.class
 com\cfscr\solicitudes\connection\DAOUsuarios.class
+com\cfscr\solicitudes\controllers\VerSolicitud.class
 com\cfscr\solicitudes\service\ServiceUsuarioImpl.class
 com\cfscr\solicitudes\service\ServiceSolicitudExt.class

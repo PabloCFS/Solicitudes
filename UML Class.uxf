@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>75</y>
+      <w>615</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>Body</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5</x>
+      <y>350</y>
+      <w>605</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Section Footer
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5</x>
+      <y>145</y>
+      <w>605</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Section
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5</x>
+      <y>105</y>
+      <w>605</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Section Header
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>160</y>
+      <w>585</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>
+Container - Tabla
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>200</y>
+      <w>585</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>
+Container Form - Agregar Mensaje
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>265</y>
+      <w>590</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>
+Container - Mensajes
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>70</y>
+      <w>585</w>
+      <h>235</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>90</y>
+      <w>575</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Titulo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>110</y>
+      <w>575</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>ID Solicitud</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>130</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Solicitante
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>130</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Tipo Solicitud
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>915</x>
+      <y>130</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Propietario
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>130</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Estado
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>185</y>
+      <w>285</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Fecha Creacion
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>915</x>
+      <y>185</y>
+      <w>285</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Fecha Modificacion
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>240</y>
+      <w>285</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Descripcion
+
+-</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>320</y>
+      <w>585</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>335</y>
+      <w>285</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>Mensaje</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>410</y>
+      <w>70</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Agregar Mensaje</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>915</x>
+      <y>410</y>
+      <w>70</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Completar Solicitud</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>475</y>
+      <w>135</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Usuario Comenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>475</y>
+      <w>135</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Fecha comentario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>460</y>
+      <w>585</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>505</y>
+      <w>565</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

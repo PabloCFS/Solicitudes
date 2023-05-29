@@ -36,7 +36,7 @@ public class DAOEstadoSolicitud extends ConexionDB{
             }
             return pLista;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOEstadoSolicitud - listar - " + ex.toString());
             return null;
         }
     }

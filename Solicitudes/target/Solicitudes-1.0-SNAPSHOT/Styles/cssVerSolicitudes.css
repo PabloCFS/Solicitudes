@@ -212,7 +212,7 @@ and open the template in the editor.
     background-color: RGB(110,110,110,0.9);
 }
 
-.tr-head-descipcion{
+.tr-head-descripcion{
     color: #000000;
     background-color: RGB(33, 181, 236, 0.8);
 }
@@ -224,6 +224,12 @@ and open the template in the editor.
 
 .tr-tbody{
     color: #FFFFFF;
+}
+
+#botonConsultaSolicitud{
+    background: none;
+    border: 0;
+    color: inherit;
 }
 
 /*    border: 1px yellow solid !important;*/

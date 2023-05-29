@@ -25,6 +25,10 @@ public interface ServiceMensajeExt extends ServiceMensaje{
     @Override
     ArrayList<Mensaje> listar(ArrayList<Mensaje> pMensaje);
     
+    //LISTAR MENSAJES SOLICITUD
+    @Override
+    ArrayList<Mensaje> listarMensajes(ArrayList<Mensaje> pMensaje, int pId_Solicitud);
+    
     //CONSULTAR MENSAJE
     @Override
     Mensaje consultar(int pId);

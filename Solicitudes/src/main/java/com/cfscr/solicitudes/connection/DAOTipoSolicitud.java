@@ -36,7 +36,7 @@ public class DAOTipoSolicitud {
             }
             return pLista;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOTipoSolicitud - listar - " + ex.toString());
             return null;
         }
     }

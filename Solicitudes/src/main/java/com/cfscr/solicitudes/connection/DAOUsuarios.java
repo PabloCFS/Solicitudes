@@ -36,7 +36,7 @@ public class DAOUsuarios extends ConexionDB{
             
             rs = csta.executeQuery();
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOUsuarios - insertar - " + ex.toString());
         }
     }
     
@@ -53,6 +53,7 @@ public class DAOUsuarios extends ConexionDB{
             }
             
         } catch(SQLException ex){
+            System.out.println("DAOUsuarios - eliminar - " + ex.toString());
             return false;
         }
         return false;
@@ -74,7 +75,7 @@ public class DAOUsuarios extends ConexionDB{
             }
             return pUsuario;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOUsuarios - listar - " + ex.toString());
             return null;
         }
     }
@@ -94,7 +95,7 @@ public class DAOUsuarios extends ConexionDB{
             }
             return usuario;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOUsuarios - consultar - " + ex.toString());
             return usuario;
         }
     }
@@ -113,7 +114,7 @@ public class DAOUsuarios extends ConexionDB{
             
             return true;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOUsuarios - actualizar - " + ex.toString());
             return false;
         }
     }
@@ -134,7 +135,7 @@ public class DAOUsuarios extends ConexionDB{
             }
             
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOUsuarios - login - " + ex.toString());
             return miUsuario;
         }
         return miUsuario;

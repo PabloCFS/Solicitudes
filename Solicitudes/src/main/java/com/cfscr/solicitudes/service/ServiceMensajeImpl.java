@@ -29,10 +29,16 @@ public class ServiceMensajeImpl implements ServiceMensajeExt{
         return daoMensaje.eliminar(pId);
     }
 
-    //LISTAR MENSAJE
+    //LISTAR MENSAJES
     @Override
     public ArrayList<Mensaje> listar(ArrayList<Mensaje> pMensaje) {
         return daoMensaje.listar(pMensaje);
+    }
+    
+    //LISTAR MENSAJES SOLICITUD
+    @Override
+    public ArrayList<Mensaje> listarMensajes(ArrayList<Mensaje> pMensaje, int pId_Solicitud) {
+        return daoMensaje.listarMensajes(pMensaje, pId_Solicitud);
     }
 
     //CONSULTAR MENSAJE

@@ -36,7 +36,7 @@ public class DAORol {
             }
             return pLista;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAORol - listar - " + ex.toString());
             return null;
         }
     }

@@ -5,17 +5,28 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.entities.Solicitud;
+import com.cfscr.solicitudes.entities.EstadoSolicitud;
+
+
 import com.cfscr.solicitudes.logic.Fechas;
+
+import com.cfscr.solicitudes.entities.Solicitud;
+import com.cfscr.solicitudes.entities.TipoSolicitud;
+import com.cfscr.solicitudes.entities.Usuario;
+
+import com.cfscr.solicitudes.service.ServiceListasImpl;
+import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
 import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
+
 import jakarta.servlet.ServletConfig;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +37,9 @@ public class AgregarSolicitud extends HttpServlet {
 
     ServiceSolicitudImpl servSolicitudImpl = new ServiceSolicitudImpl();
     
+    ServiceListasImpl servListasImpl = new ServiceListasImpl();
+    ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
+    
     public AgregarSolicitud(){
         super();
     }
@@ -35,6 +49,8 @@ public class AgregarSolicitud extends HttpServlet {
         String initial = config.getInitParameter("initial");
         
         servSolicitudImpl = new ServiceSolicitudImpl();
+        servListasImpl = new ServiceListasImpl();
+        servUsuarioImpl = new ServiceUsuarioImpl();
     }
     
     /**
@@ -48,58 +64,81 @@ public class AgregarSolicitud extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        //Declaracion de variables
         HttpSession session = request.getSession();
-        response.setContentType("text/html;charset=utf-8");
-        
-        //Lista de manipulacion de listas
-        ArrayList<Solicitud> listSolicitud = new ArrayList<>();
-        listSolicitud = servSolicitudImpl.listar(listSolicitud, "0", 0);
-        Fechas fecha = new Fechas();
-        
-        //Captura datos para almacenar solicitud
+       
         int idSolicitud = 0;
-        for(int i=0; i<listSolicitud.size(); i++){
-            idSolicitud = listSolicitud.get(i).getId() + 1;
+        Fechas fecha = new Fechas();
+        Solicitud solicitud = new Solicitud();
+        
+        ArrayList<Usuario> listUsuario = new ArrayList<>();
+        ArrayList<Solicitud> solicitudes = new ArrayList<>();
+        ArrayList<Solicitud> listSolicitud = new ArrayList<>();
+        ArrayList<TipoSolicitud> listTipoSolicitud = new ArrayList<>();
+        ArrayList<EstadoSolicitud> listEstSolicitud = new ArrayList<>();
+        
+        solicitudes = servSolicitudImpl.listar(solicitudes, "0", 0);
+        
+        //Asignar id a la solicitud
+        for(int i=0; i<solicitudes.size(); i++){
+            idSolicitud = solicitudes.get(i).getId() + 1;
         }
        
+        //Captura datos de Solicitud
         String titulo = request.getParameter("tituloSolicitud");
         int tipo = Integer.parseInt(request.getParameter("TipoSolicitud"));        
-        int idUs = Integer.parseInt(request.getParameter("idUs"));
+        int us = Integer.parseInt(request.getParameter("idUs"));
         String descripcion = request.getParameter("Descripcion");
         int idEstado = 1;
         int propietario = Integer.parseInt(request.getParameter("AsignarA"));
         
-        /////////////////////////////
-        String fechaMod = fecha.fechaActual();
-        String fechaCreacion = fecha.fechaActual();
-        /////////////////////////////
+        Date fechaCreacion = stringToDate(fecha.fechaActual());
+        Date fechaMod = stringToDate(fecha.fechaActual());
         
         String tipoLista = request.getParameter("tipoList");
+        int list = Integer.parseInt(tipoLista);
         
-        System.out.println("idSolicitud ->"+idSolicitud);
-        System.out.println("titulo -> "+titulo);
-        System.out.println("tipo -> "+tipo);
-        System.out.println("idUs -> "+idUs);
-        System.out.println("descripcion -> "+ descripcion);
-        System.out.println("idEstado -> "+idEstado);
-        System.out.println("propietario -> "+propietario);
-        System.out.println("fechaCreacion -> "+fechaCreacion);
-        System.out.println("fechaMod -> "+fechaMod);
-        System.out.println("tipoLista -> "+tipoLista);
+        //Insertar Solicitud
+        solicitud = new Solicitud(idSolicitud,titulo,tipo,us,descripcion,idEstado,propietario,fechaCreacion,fechaMod);
+        servSolicitudImpl.insertar(solicitud);
+        
+        //0 - Listar Todas solicitudes
+        //1- Listar todos relacionados un usuario
+        //2- Listar abiertos realacionados a un usuario
+        //3- Listar cerrados relacionados a un usuario
+        listSolicitud = servSolicitudImpl.listar(listSolicitud, tipoLista, us);
+        
+        listUsuario = servUsuarioImpl.listar(listUsuario);
+        listEstSolicitud = servListasImpl.listarEstado(listEstSolicitud);
+        listTipoSolicitud = servListasImpl.listarTipoSolicitud(listTipoSolicitud);
         
         session = request.getSession(true);
-        System.out.println("Servlet agregar solicitud -> 94");
         
-        request.setAttribute("us", idUs);
-        session.setAttribute("us", idUs);
+        request.setAttribute("us", us);
+        session.setAttribute("us", us);
         
-        /*
-        request.setAttribute("list", tipoLista);
-        session.setAttribute("list", tipoLista);
-        */
+        request.setAttribute("list", list);
+        session.setAttribute("list", list);
         
-        response.sendRedirect("SolicitudesUsuario");
+        request.setAttribute("listSolicitud", listSolicitud);
+        session.setAttribute("listSolicitud", listSolicitud);
+        
+        request.setAttribute("listEstSolicitud", listEstSolicitud);
+        session.setAttribute("listEstSolicitud", listEstSolicitud);
+        
+        request.setAttribute("listTipoSolicitud", listTipoSolicitud);
+        session.setAttribute("listTipoSolicitud", listTipoSolicitud);
+        
+        request.setAttribute("listUsuario", listUsuario);
+        session.setAttribute("listUsuario", listUsuario);
+        
+        request.getRequestDispatcher("VerSolicitudes.jsp").forward(request, response);
+    }
+    
+    private Date stringToDate(String fecha){
+        Date date = Date.valueOf(fecha);
+        return date;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

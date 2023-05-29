@@ -38,10 +38,10 @@ public class DAOSolicitud extends ConexionDB{
             csta.setInt(7,pSolicitud.getIdPropietario());
             csta.setDate(8,pSolicitud.getFechaCreacion());
             csta.setDate(9,pSolicitud.getFechaModificacion());
-            
+        
             rs = csta.executeQuery();
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOSolicitud - insertar - " + ex.toString());
         }
     }
     
@@ -58,6 +58,7 @@ public class DAOSolicitud extends ConexionDB{
             }
             
         } catch(SQLException ex){
+            System.out.println("DAOSolicitud - eliminar - " + ex.toString());
             return false;
         }
         return false;
@@ -98,7 +99,7 @@ public class DAOSolicitud extends ConexionDB{
             
             return pSolicitud;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOSolicitud - listar - " + ex.toString());
             return null;
         }
     }
@@ -114,11 +115,11 @@ public class DAOSolicitud extends ConexionDB{
             rs = csta.executeQuery();
             
             if(rs.next()){
-                miSolicitud = new Solicitud(rs.getInt("ID_SOLICITUD"),rs.getString("TITULO"),rs.getInt("TIPO"),rs.getInt("ID_SOLICITANTE"),rs.getString("DESCRIPCION"),rs.getInt("ID_ESTADO"),rs.getInt("ID_PROPIETARIO"),rs.getDate("FECHA_CREACION"),rs.getDate("FECHA_MODIFICACION"));
+                miSolicitud = new Solicitud(rs.getInt("ID_SOLICITUD"),rs.getString("TITULO"),rs.getInt("TIPO_SOLICITUD"),rs.getInt("ID_SOLICITANTE"),rs.getString("DESCRIPCION"),rs.getInt("ID_ESTADO"),rs.getInt("ID_PROPIETARIO"),rs.getDate("FECHA_CREACION"),rs.getDate("FECHA_MODIFICACION"));
             }
             return miSolicitud;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOSolicitud - consultar - " + ex.toString());
             return miSolicitud;
         }
     }
@@ -142,7 +143,7 @@ public class DAOSolicitud extends ConexionDB{
             
             return true;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOSolicitud - actualizar - " + ex.toString());
             return false;
         }
     }

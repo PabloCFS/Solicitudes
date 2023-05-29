@@ -37,7 +37,7 @@ public class DAOMensaje extends ConexionDB{
             
             rs = csta.executeQuery();
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOMensaje - insertar - " + ex.toString());
         }
     }
     
@@ -54,6 +54,7 @@ public class DAOMensaje extends ConexionDB{
             }
             
         } catch(SQLException ex){
+            System.out.println("DAOMensaje - eliminar - " + ex.toString());
             return false;
         }
         return false;
@@ -75,7 +76,31 @@ public class DAOMensaje extends ConexionDB{
             }
             return pMensaje;
         } catch(SQLException ex){
-            System.out.println(ex.toString());
+            System.out.println("DAOMensaje - lsitar - " + ex.toString());
+            return null;
+        }
+    }
+    
+    /*LISTAR MENSAJES SOLICITUD*/
+    public ArrayList<Mensaje> listarMensajes(ArrayList<Mensaje> pMensaje, int pId_Solicitud){
+        String SQL_LISTAR = "SP_LISTAR_MENSAJES_SOLICITUD ?";
+        
+        CallableStatement csta;
+        
+        try{
+            csta = cn.prepareCall(SQL_LISTAR);
+            csta.setInt(1, pId_Solicitud);
+            
+            rs = csta.executeQuery();
+            
+            while(rs.next()){
+                Mensaje miMensaje = new Mensaje(rs.getInt("ID_MENSAJE"),rs.getString("DESCRIPCION"),rs.getInt("ID_SOLICITUD"),rs.getInt("ID_USUARIO_COMENTA"),rs.getDate("FECHA_CREACION"));
+                pMensaje.add(miMensaje);
+            }
+            return pMensaje;
+            
+        } catch(SQLException ex){
+            System.out.println("DAOMensaje - listarMensajes - " + ex.toString());
             return null;
         }
     }
@@ -95,12 +120,12 @@ public class DAOMensaje extends ConexionDB{
             }
             return miMensaje;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOMensaje - consultar - " + ex.toString());
             return miMensaje;
         }
     }
 
-    /*CONSULTAR MENSAJE*/
+    /*ACTUALIZAR MENSAJE*/
     public boolean actualizar(Mensaje pMensaje){
         String SQL_MODIFICAR = "SP_ACUTALIZAR_MENSAJE ?,?,?,?,?";
         try{
@@ -115,7 +140,7 @@ public class DAOMensaje extends ConexionDB{
             
             return true;
         } catch(SQLException ex){
-            System.out.println(ex);
+            System.out.println("DAOMensaje - actualizar - " + ex.toString());
             return false;
         }
     }

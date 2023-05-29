@@ -9,13 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1 maxium-scale=1.0, minium-scale=1.0">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0m maxium-scale=1.0, minium-scale=1.0">
         
         <%@include file = "Templates/Bootstrap.jsp"%>
         <%@include file = "Modals/NuevaSolicitud.jsp"%>
         
         <link rel="stylesheet" type="text/css" href="Styles/cssVerSolicitudes.css">
-        <link rel="icon" href="Sources/Images/logo_cfs-color.png">        
+        <link rel="icon" href="Sources/Images/logo_cfs-color.png">
+        
         <title>CFS Solicitudes</title>
     </head>
     
@@ -85,7 +86,7 @@
                         
                     <table class="table table-fixed table-responsive-lg table-hover" id="tableSolicitudes">
                         <thead class="bg-secondary text-white">
-                            <tr class="tr-head-descipcion">
+                            <tr class="tr-head-descripcion">
                                 <th class="text-center col-xs-2" colspan="8">
                                     
                                     <%if(list == 1){%>
@@ -97,6 +98,7 @@
                                     <%} else if(list == 3) {%>
                                         Solicitudes Cerradas
                                     <%}%>
+                                    &nbsp;<%=us%>
                                 </th>
                             </tr>
                             
@@ -128,8 +130,24 @@
                                         } 
                                     %>
                                 </td>
+                                
                                 <td class="text-center col-xs-2"><%=solicitudHtml.get(i).getId()%></td>
-                                <td class="text-center col-xs-2"><%=solicitudHtml.get(i).getTitulo()%></td>
+                                
+                                <!-- TRABAJAR FORMULARIO -->
+                                <td class="text-center col-xs-2">
+                                    <form action="VerSolicitud" method="post" name="myForm">
+                                        <input type="hidden" name="lista" value=<%=list%>>
+                                        <input type="hidden" name="usuario" value=<%=us%>>
+                                        
+                                        <input type="hidden" name="idSolicitud" value=<%=solicitudHtml.get(i).getId()%>>
+                                        
+                                        <button id="botonConsultaSolicitud" type="submit" style="none">
+                                            <%=solicitudHtml.get(i).getTitulo()%>
+                                        </button>
+                                    </form>
+                                </td>
+                                <!-- FINALIZAR FORMULARIO-->
+                                
                                 <td class="text-center col-xs-2">
                                     <%
                                         for(int j=0; j<tipoSolicitudHtml.size(); j++){

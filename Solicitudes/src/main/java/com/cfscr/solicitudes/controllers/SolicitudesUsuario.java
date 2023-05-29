@@ -5,22 +5,23 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.entities.EstadoSolicitud;
-import com.cfscr.solicitudes.entities.Rol;
+import com.cfscr.solicitudes.entities.Usuario;
 import com.cfscr.solicitudes.entities.Solicitud;
 import com.cfscr.solicitudes.entities.TipoSolicitud;
-import com.cfscr.solicitudes.entities.Usuario;
-import com.cfscr.solicitudes.service.ServiceListasImpl;
-import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
-import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
-import jakarta.servlet.ServletConfig;
-import java.io.IOException;
+import com.cfscr.solicitudes.entities.EstadoSolicitud;
 
+import com.cfscr.solicitudes.service.ServiceListasImpl;
+import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
+import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
+
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +30,9 @@ import java.util.ArrayList;
  */
 public class SolicitudesUsuario extends HttpServlet {
     
-    ServiceSolicitudImpl servSolicitudImpl = new ServiceSolicitudImpl();
     ServiceListasImpl servlistasImpl = new ServiceListasImpl();
     ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
+    ServiceSolicitudImpl servSolicitudImpl = new ServiceSolicitudImpl();
     
     public SolicitudesUsuario(){
         super();
@@ -40,9 +41,10 @@ public class SolicitudesUsuario extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException{
         String initial = config.getInitParameter("initial");
-        servSolicitudImpl = new ServiceSolicitudImpl();
+        
         servlistasImpl = new ServiceListasImpl();
         servUsuarioImpl = new ServiceUsuarioImpl();
+        servSolicitudImpl = new ServiceSolicitudImpl();
         
     }
     /**
@@ -58,18 +60,17 @@ public class SolicitudesUsuario extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        ArrayList<Solicitud> listSolicitud = new ArrayList<>();
-        ArrayList<EstadoSolicitud> listEstSolicitud = new ArrayList<>();
-        ArrayList<TipoSolicitud> listTipoSolicitud = new ArrayList<>();
+        
         ArrayList<Usuario> listUsuario = new ArrayList<>();
+        ArrayList<Solicitud> listSolicitud = new ArrayList<>();
+        ArrayList<TipoSolicitud> listTipoSolicitud = new ArrayList<>();
+        ArrayList<EstadoSolicitud> listEstSolicitud = new ArrayList<>();
         
-        response.setContentType("text/html;charset=utf-8");
-        
-        String idUsuario = request.getParameter("idUs");
         String listar = request.getParameter("listar");
+        String idUsuario = request.getParameter("idUs");
         
-        int us = Integer.parseInt(idUsuario);
         int list = Integer.parseInt(listar);
+        int us = Integer.parseInt(idUsuario);
         
         //0 - Listar Todas solicitudes
         //1- Listar todos relacionados un usuario

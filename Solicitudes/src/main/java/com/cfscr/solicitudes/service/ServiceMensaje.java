@@ -22,6 +22,9 @@ public interface ServiceMensaje {
     //LISTAR MENSAJE
     ArrayList<Mensaje> listar(ArrayList<Mensaje> pMensaje);
     
+    //LISTAR MENSAJES SOLICITUD
+    ArrayList<Mensaje> listarMensajes(ArrayList<Mensaje> pMensaje, int pId_Solicitud);
+    
     //CONSULTAR MENSAJE
     Mensaje consultar(int pId);
     
