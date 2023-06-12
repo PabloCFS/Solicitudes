@@ -126,7 +126,7 @@ public class DAOSolicitud extends ConexionDB{
     
     /**MODIFICAR SOLICITUD**/
     public boolean actualizar(Solicitud pSolicitud){
-        String SQL_MODIFICAR = "SP_ACUTALIZAR_SOLICITUD ?,?,?,?,?,?,?,?,?";
+        String SQL_MODIFICAR = "SP_ACTUALIZAR_SOLICITUD ?,?,?,?,?,?,?,?,?";
         try{
             CallableStatement csta = cn.prepareCall(SQL_MODIFICAR);
             csta.setInt(1, pSolicitud.getId());

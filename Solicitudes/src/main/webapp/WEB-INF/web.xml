@@ -59,6 +59,16 @@
         <servlet-name>AgregarMensaje</servlet-name>
         <url-pattern>/AgregarMensaje</url-pattern>
     </servlet-mapping>
+    
+    <!-- Servlet CerrarSolicitud -->
+    <servlet>
+        <servlet-name>CerrarSolicitud</servlet-name>
+        <servlet-class>com.cfscr.solicitudes.controllers.CerrarSolicitud</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CerrarSolicitud</servlet-name>
+        <url-pattern>/CerrarSolicitud</url-pattern>
+    </servlet-mapping>
         
     <session-config>
         <session-timeout>

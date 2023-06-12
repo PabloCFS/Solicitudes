@@ -8,3 +8,189 @@ and open the template in the editor.
     Author     : pablo.elizondo
 */
 
+@font-face{
+    font-family: MontI;
+    src: url("../Sources/Fonts/Montserrat-Italic-VariableFont_wght.ttf");
+    
+}
+
+@font-face{
+    font-family: Mont;
+    src: url("../Sources/Fonts/Montserrat-VariableFont_wght.ttf")
+}
+
+/*Body de la pagina*********************************/
+.body-menu{
+    display: block;
+    position: static;
+    
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    background-image: url("../Sources/Images/FondoIng.jpg");
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+    background-attachment: fixed;
+}
+
+.sectionVerSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px;
+    
+    width: 98%;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.containerVerSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px;
+    
+    width: 98%;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+/*TABLA=========================================*/
+.divTableVerSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 1% 1% 0px 1%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.table{
+    margin-top: 1%;
+    background-color: RGB(110,110,110,0.9);
+}
+
+.tr-head-descripcion{
+    color: #000000;
+    background-color: RGB(33,181,236,0.8);
+}
+
+.tr-head{
+    color: #000000;
+    background-color: RGB(33,181,236,0.6);
+}
+
+.tr-tbody{
+    color: #FFFFFF;
+}
+
+/*CERRAR SOLICITUD==========================*/
+.DivBtn-closeSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 0px 1% 0px 1%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.divCerrarSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 0% 0% 0% 0%;
+    padding: 0% 0% 0% 0%;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+/*AGREGAR MENSAJE******/
+.DivAgregarMensaje{
+   display: block;
+    position: static;
+    
+    margin: 0px 1% 0px 1%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.agregar-Mensaje{
+    display: block;
+    position: static;
+    
+    margin: 2% 0% 0% 0%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.label-nuevoMsj{
+    font-weight: 600;
+    font-size: 110%;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

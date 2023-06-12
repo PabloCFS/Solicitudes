@@ -62,7 +62,7 @@ public class VerSolicitud extends HttpServlet {
         //Declaracion de variables
         HttpSession session = request.getSession();
         
-        Solicitud solicitud;
+        Solicitud solicitud = new Solicitud();
         
         String tipoSolicitud = "";
         String estadoSolicitud = "";

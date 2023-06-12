@@ -120,6 +120,11 @@ public class AgregarMensaje extends HttpServlet {
             }
         }
         
+        //Actualizar Solicitud
+        solicitud.setFechaModificacion(fechaCreacion);
+        servSolicitudImpl.actualizar(solicitud);
+        solicitud = servSolicitudImpl.consultar(idSolicitud);
+        
         //Enviar datos
         session = request.getSession(true);
         

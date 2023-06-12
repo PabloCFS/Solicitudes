@@ -42,26 +42,28 @@
         <%@include file="Templates/Header.jsp"%>
         
         <!-- INICIO CUERPO DE LA PAGINA -->
-        <section>
-            <container>
-                <div>
+        <section class="sectionVerSolicitud">
+            
+            <!-- DATOS SOLICITUD - TABLA -->
+            <container class="containerVerSolicitud">
+                <div class="divTableVerSolicitud">
                     <table class="table table-fixed table-responsive-lg table-hover">
                         <thead class="bg-secondary text-white">
-                            <tr>
-                                <th class="text-center col-xs-2" colspan="4"><%=miSolicitud.getTitulo()%></th>
+                            <tr class="tr-head-descripcion">
+                                <th class="text-center col-xs-2" colspan="6"><%=miSolicitud.getId()%> - <%=miSolicitud.getTitulo()%></th>
                             </tr>
-                            <tr>
-                                <th class="text-center col-xs-2" colspan="4"><%=miSolicitud.getId()%></th>
-                            </tr>
-                            <tr>
+                            
+                            <tr class="tr-head">
                                 <th class="text-center col-xs-2">Tipo Solicitud</th>
                                 <th class="text-center col-xs-2">Solicitante</th>
                                 <th class="text-center col-xs-2">Propietario</th>
+                                <th class="text-center col-xs-2">Fecha Creaci&oacute;n</th>
+                                <th class="text-center col-xs-2">Fecha Modificaci&oacute;n</th>
                                 <th class="text-center col-xs-2">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="tr-tbody">
                                 <td class="text-center col-xs-2"><%=tipoSolicitud%></td>
                                 <td class="text-center col-xs-2">
                                     <%
@@ -85,60 +87,74 @@
                                     }
                                     %>
                                 </td>
+                                <td class="text-center col-xs-2"><%=miSolicitud.getFechaCreacion()%></td>
+                                <td class="text-center col-xs-2"><%=miSolicitud.getFechaModificacion()%></td>
                                 <td class="text-center col-xs-2"><%=estadoSolicitud%></td>
                             </tr>
                         </tbody>
                         
                         <thead class="bg-secondary text-white">
-                            <tr>
-                                <th class="text-center col-xs-2" colspan="2">Fecha Creaci&oacute;n</th>
-                                <th class="text-center col-xs-2" colspan="2">Fecha Modificaci&oacute;n</th>
+                            <tr class="tr-head">
+                                <th class="text-center col-xs-2" colspan="6">Descripci&oacute;n</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center col-xs-2" colspan="2"><%=miSolicitud.getFechaCreacion()%></td>
-                                <td class="text-center col-xs-2" colspan="2"><%=miSolicitud.getFechaModificacion()%></td>
-                            </tr>
-                        </tbody>
-                        
-                        <thead class="bg-secondary text-white">
-                            <tr>
-                                <th class="text-center col-xs-2" colspan="4">Descripci&oacute;n</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center col-xs-2" colspan="4"><%=miSolicitud.getDescripcion()%></td>
+                            <tr class="tr-tbody">
+                                <td class="text-center col-xs-2" colspan="6"><%=miSolicitud.getDescripcion()%></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                            
+                <div class="DivBtn-closeSolicitud">
+                    <form class="cerrarSolicitud" action="CerrarSolicitud" method="post" name="myForm">
+                        <div>
+                            <input type="hidden" id="idSolicitud" name="idSolicitud" value=<%=miSolicitud.getId()%>>
+                            <input type="hidden" id="usuarioComenta" name="usuario" value=<%=us%>>
+                            <input type="hidden" id="tipoList" name="tipoList" value=<%=list%>>
+                            
+                            <div class="divCerrarSolicitud">
+                                <% if(estadoSolicitud.equals("Asignado")) { %>
+                                    <button id="btnCerrarSolicitud" type="submit" class="btn btn-outline-warning">Cerrar Solicitud</button>
+                                <% } else if (estadoSolicitud.equals("Cerrado")) {%>
+                                    <button id="btnCerrarSolicitud" type="submit" class="btn btn-outline-warning disabled" aria-disable="true" disabled>Cerrar Solicitud</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </container>
             
             <!-- AGREGAR MENSAJE -->
-            <container>
-                <div>
+            <container class="containerVerSolicitud">
+                <div class="DivAgregarMensaje">
                     <form class="agregar-Mensaje" action="AgregarMensaje" method="post" name="myForm">
                         <div>
-                            <label class="col-form-label"><Strong>Nuevo Mensaje</Strong></label>
-                            <textarea class="form-control" aria-label="Width textarea" name="mensaje" id="mensaje" placeholder="Escriba su mensaje"></textarea>
+                            <label class="col-form-label label-nuevoMsj"><Strong>Nuevo Mensaje</Strong></label>
+                            
+                            <% if(estadoSolicitud.equals("Asignado")){ %>
+                                <textarea class="form-control" aria-label="Width textarea" name="mensaje" id="mensaje" placeholder="Escriba su mensaje" required="true"></textarea>
+                            <% } else if(estadoSolicitud.equals("Cerrado")) {%>
+                                <textarea class="form-control" aria-label="Disable input" name="mensaje" id="mensaje" placeholder="Escriba su mensaje" disabled=></textarea>
+                            <% } %>
                             
                             <input type="hidden" id="idSolicitud" name="idSolicitud" value=<%=miSolicitud.getId()%>>
                             <input type="hidden" id="usuarioComenta" name="usuario" value=<%=us%>>
+                            <input type="hidden" id="tipoList" name="tipoList" value=<%=list%>>
                         </div>
                         <div>
-                            <input type="hidden" id="tipoList" name="tipoList" value=<%=list%>>
-                            
-                            <button id="btnNuevoMensaje" type="submit" class="btn btn-outline-success">Agregar Mensaje</button>
-                            <button id="btnCerrarSolicitud" type="submit" class="btn btn-outline-success">Cerrar Solicitud</button>
+                            <% if(estadoSolicitud.equals("Asignado")) {%>
+                                <button id="btnNuevoMensaje" type="submit" class="btn btn-outline-success">Agregar Mensaje</button>
+                            <% } else if(estadoSolicitud.equals("Cerrado")) {%>
+                                <button id="btnNuevoMensaje" type="submit" class="btn btn-outline-success disabled" aria-disable="true" disabled>Agregar Mensaje</button>
+                            <% } %>
                         </div>
                     </form>
                 </div>
             </container>
             
             <!-- MENSAJES -->
-            <container>
+            <container class="containerVerSolicitud">
                 <div>
                     <% for(int i=0; i<mensajesHtml.size(); i++) { %>
                         <div> 
