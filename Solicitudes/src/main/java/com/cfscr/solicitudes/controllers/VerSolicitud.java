@@ -5,22 +5,25 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.entities.EstadoSolicitud;
+import com.cfscr.solicitudes.entities.Usuario;
 import com.cfscr.solicitudes.entities.Mensaje;
 import com.cfscr.solicitudes.entities.Solicitud;
 import com.cfscr.solicitudes.entities.TipoSolicitud;
-import com.cfscr.solicitudes.entities.Usuario;
+import com.cfscr.solicitudes.entities.EstadoSolicitud;
+
 import com.cfscr.solicitudes.service.ServiceListasImpl;
+import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
 import com.cfscr.solicitudes.service.ServiceMensajeImpl;
 import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
-import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
+
 import jakarta.servlet.ServletConfig;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -57,36 +60,40 @@ public class VerSolicitud extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Declaracion de variables
-        HttpSession session = request.getSession();
+        System.out.println("Servlet VerSolicitud -> Declaracion de variables");
         
-        Solicitud solicitud = new Solicitud();
+        HttpSession session = request.getSession();
         
         String tipoSolicitud = "";
         String estadoSolicitud = "";
         
+        Solicitud solicitud = new Solicitud();
+        
         ArrayList<Mensaje> mensajes = new ArrayList<>();
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        
         ArrayList<TipoSolicitud> tiposSolicitud = new ArrayList<>();
         ArrayList<EstadoSolicitud> estadosSolicitud = new ArrayList<>();
         
-        //Captura datos de formulario
-        int us = Integer.parseInt(request.getParameter("usuario"));
-        String tipoLista = request.getParameter("lista");
+        //Captura datos
+        System.out.println("Servlet VerSolicitud -> Captura datos");
+        
+        String tipoLista = request.getParameter("listar");
+        int us = Integer.parseInt(request.getParameter("userid"));
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         
         int list = Integer.parseInt(tipoLista);
         
         //Consultar datos de la solicitud | Mensajes
+        System.out.println("Servlet VerSolicitud -> Consultar datos de la solicitud | Mensajes");
+        
+        usuarios = servUsuarioImpl.listar(usuarios);
         solicitud = servSolicitudImpl.consultar(idSolicitud);
         mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
-        usuarios = servUsuarioImpl.listar(usuarios);
         
-        tiposSolicitud = servListasImpl.listarTipoSolicitud(tiposSolicitud);
         estadosSolicitud = servListasImpl.listarEstado(estadosSolicitud);
+        tiposSolicitud = servListasImpl.listarTipoSolicitud(tiposSolicitud);
         
         for(int i=0; i<tiposSolicitud.size(); i++){
             if(tiposSolicitud.get(i).getId() == solicitud.getIdTipo()){
@@ -101,28 +108,25 @@ public class VerSolicitud extends HttpServlet {
         }
         
         //Enviar parametros
+        System.out.println("Servlet VerSolicitud -> Enviar parametros");
+        
         session = request.getSession(true);
         
-        request.setAttribute("us", us);
-        session.setAttribute("us", us);
-        
-        request.setAttribute("list", list);
-        session.setAttribute("list", list);
-        
-        request.setAttribute("tipoSolicitud", tipoSolicitud);
-        session.setAttribute("tipoSolicitud", tipoSolicitud);
-        
-        request.setAttribute("estadoSolicitud", estadoSolicitud);
-        session.setAttribute("estadoSolicitud", estadoSolicitud);
-        
+        request.setAttribute("userid", us);
+        request.setAttribute("listar", list);
         request.setAttribute("mensajes", mensajes);
-        session.setAttribute("mensajes", mensajes);
-        
         request.setAttribute("usuarios", usuarios);
-        session.setAttribute("usuarios", usuarios);
-        
         request.setAttribute("solicitud", solicitud);
+        request.setAttribute("tipoSolicitud", tipoSolicitud);
+        request.setAttribute("estadoSolicitud", estadoSolicitud);
+        
+        session.setAttribute("userid", us);
+        session.setAttribute("listar", list);
+        session.setAttribute("mensajes", mensajes);
+        session.setAttribute("usuarios", usuarios);
         session.setAttribute("solicitud", solicitud);
+        session.setAttribute("tipoSolicitud", tipoSolicitud);
+        session.setAttribute("estadoSolicitud", estadoSolicitud);
         
         request.getRequestDispatcher("VerSolicitud.jsp").forward(request, response);
     }

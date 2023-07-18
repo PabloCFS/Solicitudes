@@ -5,25 +5,30 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.entities.EstadoSolicitud;
+import com.cfscr.solicitudes.logic.Fechas;
+
+import com.cfscr.solicitudes.entities.Usuario;
 import com.cfscr.solicitudes.entities.Mensaje;
 import com.cfscr.solicitudes.entities.Solicitud;
 import com.cfscr.solicitudes.entities.TipoSolicitud;
-import com.cfscr.solicitudes.entities.Usuario;
-import com.cfscr.solicitudes.logic.Fechas;
+import com.cfscr.solicitudes.entities.EstadoSolicitud;
+
 import com.cfscr.solicitudes.service.ServiceListasImpl;
 import com.cfscr.solicitudes.service.ServiceMensajeImpl;
-import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
 import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
+import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
+
 import jakarta.servlet.ServletConfig;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import java.sql.Date;
 
 /**
  *
@@ -60,41 +65,49 @@ public class CerrarSolicitud extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Declaracion de variables
+        System.out.println("Servlet CerrarSolicitud -> Declaracion de variables");
+        
         HttpSession session = request.getSession();
+        
+        String tipoSolicitud = "";
+        String estadoSolicitud = "";
         
         Solicitud solicitud;
         Fechas fecha = new Fechas();
-                
-        String tipoSolicitud = "";
-        String estadoSolicitud = "";
+        Date fechaActualiza = stringToDate(fecha.fechaActual());
         
         ArrayList<Mensaje> mensajes = new ArrayList<>();
         ArrayList<Usuario> usuarios = new ArrayList<>();
         ArrayList<TipoSolicitud> tiposSolicitud = new ArrayList<>();
         ArrayList<EstadoSolicitud> estadosSolicitud = new ArrayList<>();
         
-        Date fechaActualiza = stringToDate(fecha.fechaActual());
-        
         //Captura datos
-        int us = Integer.parseInt(request.getParameter("usuario"));
+        System.out.println("Servlet CerrarSolicitud -> Captura datos");
+        
+        System.out.println("Servlet CerrarSolicitud -> Captura datos");
+        
+        String tipoLista = request.getParameter("listar");
+        int us = Integer.parseInt(request.getParameter("userid"));
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        String tipoLista = request.getParameter("tipoList");
         
         int list = Integer.parseInt(tipoLista);
     
         //Cerrar solicitud
+        System.out.println("Servlet CerrarSolicitud -> Cerrar solicitud");
+        
         solicitud = servSolicituImpl.consultar(idSolicitud);
         solicitud.setEstado(2);
         solicitud.setFechaModificacion(fechaActualiza);
         servSolicituImpl.actualizar(solicitud);
         
         //Consultar datos de la solicitud | Mensajes
+        System.out.println("Servlet CerrarSolicitud -> Consultar datos de la solicitud | Mensajes");
+        
+        usuarios = servUsuarioImpl.listar(usuarios);
         solicitud = servSolicituImpl.consultar(idSolicitud);
         mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
-        usuarios = servUsuarioImpl.listar(usuarios);
-        
-        tiposSolicitud = servListasImpl.listarTipoSolicitud(tiposSolicitud);
         estadosSolicitud = servListasImpl.listarEstado(estadosSolicitud);
+        tiposSolicitud = servListasImpl.listarTipoSolicitud(tiposSolicitud);
         
         for(int i=0; i<tiposSolicitud.size(); i++){
             if(tiposSolicitud.get(i).getId() == solicitud.getIdTipo()){
@@ -109,28 +122,25 @@ public class CerrarSolicitud extends HttpServlet {
         }
         
         //Enviar parametros
+        System.out.println("Servlet CerrarSolicitud -> Enviar parametros");
+        
         session = request.getSession(true);
         
-        request.setAttribute("us", us);
-        session.setAttribute("us", us);
-        
-        request.setAttribute("list", list);
-        session.setAttribute("list", list);
-        
-        request.setAttribute("tipoSolicitud", tipoSolicitud);
-        session.setAttribute("tipoSolicitud", tipoSolicitud);
-        
-        request.setAttribute("estadoSolicitud", estadoSolicitud);
-        session.setAttribute("estadoSolicitud", estadoSolicitud);
-        
+        request.setAttribute("userid", us);
+        request.setAttribute("listar", list);
         request.setAttribute("mensajes", mensajes);
-        session.setAttribute("mensajes", mensajes);
-        
         request.setAttribute("usuarios", usuarios);
-        session.setAttribute("usuarios", usuarios);
-        
         request.setAttribute("solicitud", solicitud);
+        request.setAttribute("tipoSolicitud", tipoSolicitud);
+        request.setAttribute("estadoSolicitud", estadoSolicitud);
+
+        session.setAttribute("userid", us);
+        session.setAttribute("listar", list);
+        session.setAttribute("mensajes", mensajes);
+        session.setAttribute("usuarios", usuarios);
         session.setAttribute("solicitud", solicitud);
+        session.setAttribute("tipoSolicitud", tipoSolicitud);
+        session.setAttribute("estadoSolicitud", estadoSolicitud);
         
         request.getRequestDispatcher("VerSolicitud.jsp").forward(request, response); 
     }

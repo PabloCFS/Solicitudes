@@ -1,18 +1,5 @@
-<%-- 
-    Document   : NuevaSolicitud
-    Created on : 18 may. 2023, 09:38:24
-    Author     : pablo.elizondo
---%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.cfscr.solicitudes.entities.TipoSolicitud" %>
-<%@page import="com.cfscr.solicitudes.entities.Usuario"%>
-
-<jsp:useBean id="listTipoSolicitud" scope="request" type="java.util.ArrayList" />
-<jsp:useBean id="listUsuario" scope="request" type="java.util.ArrayList" />
-
-<%ArrayList<TipoSolicitud> tipoSolicitudHtml = listTipoSolicitud;%>
-<%ArrayList<Usuario> usuarioHtml = listUsuario;%>
+<link rel="stylesheet" type="text/css" href="Styles/cssModal.css">
 
 <div class="modal fade" id="modalNuevaSolicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -32,30 +19,24 @@
 
                     <label class="col-form-label"><Strong>Tipo</Strong></label>
                     <select class="form-select" required="true" name="TipoSolicitud" id="TipoSolicitud">
-                        
                         <% for(int i=0; i<tipoSolicitudHtml.size(); i++){ %>
-                                <option value=<%=tipoSolicitudHtml.get(i).getId()%>><%=tipoSolicitudHtml.get(i).getNombre()%></option>
-                        <% } %>
-                        
+                            <option value=<%=tipoSolicitudHtml.get(i).getId()%>><%=tipoSolicitudHtml.get(i).getNombre()%></option>
+                        <%}%>
                     </select>
                     
-                    <%int user = (Integer) session.getAttribute("us");%>
-                    <input type="hidden" id="idUs" name="idUs" value=<%=user%>>
+                    <input type="hidden" id="idUs" name="userid" value=<%=us%>>
                     
                     <label class="col-form-label"><Strong>Descripci&oacute;n</Strong></label>
                     <textarea class="form-control" aria-label="With textarea" required="true" name="Descripcion" id="Descripcion"></textarea>
                     
                     <label class="col-form-control"><Strong>Asignar A:</Strong></label>
                     <select class="form-select" required="true" name="AsignarA" id="AsignarA">
-                       
                         <% for(int i=0; i<usuarioHtml.size(); i++){ %>
                             <option value=<%=usuarioHtml.get(i).getId()%>><%=usuarioHtml.get(i).getNombre()%></option>
-                        <% } %>
-                        
+                        <%}%>
                     </select>
                     
-                    <%int tipoLista = (Integer) session.getAttribute("list");%>
-                    <input type="hidden" id="tipoList" name="tipoList" value=<%=tipoLista%>>
+                    <input type="hidden" id="tipoList" name="listar" value=<%=list%>>
                 </div>
                                     
                 <div class="modal-footer">

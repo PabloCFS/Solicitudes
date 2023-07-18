@@ -10,10 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0m maxium-scale=1.0, minium-scale=1.0">
-    
+        
         <%@include file = "Templates/Bootstrap.jsp"%>
-        <link rel="stylesheet" type="text/css" href="Styles/cssLogin.css">
+        
         <link rel="icon" href="Sources/Images/logo_cfs-color.png">
+        <link rel="stylesheet" type="text/css" href="Styles/cssLogin.css">
         
         <title>CFS Solicitudes</title>
     </head>
@@ -29,11 +30,13 @@
                     <h1 class="h1-inicio">Inicio de Sesi&oacute;n</h1>
                     
                     <div class="divs-login">
-                        <form class="formulario-Login" action="Login" method="post" name="myForm">
+                        <form class="formulario-Login" action="Menu" method="post" name="myForm">
+                            
+                            <input type="hidden" name="tipoLlamado" value="Login">
                             
                             <label class="label">Usuario</label>
                             <input type="text" class="form-control" required="true" oninvalid="this.setCustomValidity('Ingrese un usuario v&aacute;lido')"
-                                   oninput="setCustomValidity('')" name="username"/>
+                                   oninput="setCustomValidity('')" name="userid"/>
                             
                             <label class="label">Contrase&ntilde;a</label>
                             <input type="password" class="form-control" required="true" oninvalid="this.setCustomValidity('Ingresa una clave correcta')"

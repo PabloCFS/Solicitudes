@@ -6,24 +6,24 @@
 package com.cfscr.solicitudes.controllers;
 
 import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
-import java.io.IOException;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
 /**
  *
  * @author pablo.elizondo
  */
-public class Login extends HttpServlet {
+public class Menu extends HttpServlet {
     
     ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
     
-    public Login(){
+    public Menu(){
         super();
     }
     
@@ -43,30 +43,50 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        //Declaracion de variables
+        int userid;
+        String usuario;
+        String contrasenia = "";
+        String tipoLlamado;
+        
         HttpSession session = request.getSession();
         
-        response.setContentType("text/html;charset=utf-8");
-        String usuario;
-        String contrasenia;
+        //Consulta de datos
+        tipoLlamado = (request.getParameter("tipoLlamado"));
+        usuario = (request.getParameter("userid"));
+        userid = Integer.parseInt(usuario);
         
-        usuario = (request.getParameter("username"));
-        contrasenia = (request.getParameter("password"));
-        
-        int uss = Integer.parseInt(usuario);
-        
-        if(servUsuarioImpl.login(uss, contrasenia) == null){
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        switch(tipoLlamado){
+            case "Login":
+                contrasenia = (request.getParameter("password"));
+                
+                if(evaluarUsuario(userid, contrasenia) == 0){
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
+            break;
         }
         
-        else if((servUsuarioImpl.login(uss, contrasenia).getId() == uss) && 
-                (servUsuarioImpl.login(uss, contrasenia)).getPassword().equals(contrasenia)){
-            session = request.getSession(true);
+        //Envio de datos a JSP's
+        session = request.getSession(true);
             
-            request.setAttribute("id_usuario", servUsuarioImpl.login(uss, contrasenia).getId());
-            session.setAttribute("id_usuario", servUsuarioImpl.login(uss, contrasenia).getId());
+        request.setAttribute("userid", userid);
+        session.setAttribute("userid", userid);
            
-            request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
+        request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
+    }
+    
+    /**EVALUA SI EL USUARIO EXISTE EN LA DB**/
+    private int evaluarUsuario(int userid, String pass){
+        if(servUsuarioImpl.login(userid, pass) == null){
+            System.out.println("Servlet Login -> Credenciales no encontradas");
+            userid = 0;
         }
+        if((servUsuarioImpl.login(userid, pass).getId() == userid) && 
+           (servUsuarioImpl.login(userid, pass)).getPassword().equals(pass)){
+            System.out.println("Servlet Login -> Credenciales correctas");
+            userid = servUsuarioImpl.login(userid, pass).getId();
+        }
+        return userid;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

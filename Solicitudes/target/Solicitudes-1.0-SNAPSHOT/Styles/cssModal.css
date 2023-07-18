@@ -1,0 +1,33 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 jul. 2023, 14:41:11
+    Author     : pablo.elizondo
+*/
+
+/*----Modal*/
+.modal-header{
+    color: #FFFFFF;
+    background-color: RGB(12, 71, 167);
+}
+
+.form-NuevaSolicitud{
+   background-color: RGB(33, 181, 236, 0.1);
+}
+
+.btn-outline-success{
+    color: #000000;
+    background-color: #B8E8B4;
+}
+
+.btn-outline-danger{
+    color: #000000;
+    background-color: #E8B4B4;
+}
+
+.modal-footer{
+    background-color: RGB(33, 181, 236, 0.6);
+}

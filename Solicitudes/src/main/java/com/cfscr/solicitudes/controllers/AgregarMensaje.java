@@ -5,8 +5,6 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.logic.Fechas;
-
 import com.cfscr.solicitudes.entities.Mensaje;
 import com.cfscr.solicitudes.entities.Usuario;
 import com.cfscr.solicitudes.entities.Solicitud;
@@ -18,18 +16,19 @@ import com.cfscr.solicitudes.service.ServiceMensajeImpl;
 import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
 import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
 
+import com.cfscr.solicitudes.logic.Fechas;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-
-import java.sql.Date;
 import java.util.ArrayList;
 import java.io.IOException;
 
+import java.sql.Date;
 /**
  *
  * @author pablo.elizondo
@@ -66,6 +65,8 @@ public class AgregarMensaje extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Declaracion de variables
+        System.out.println("Servlet AgregarMensaje -> Declaracion de variables");
+        
         HttpSession session = request.getSession();
         
         int idMensaje = 0;
@@ -83,6 +84,8 @@ public class AgregarMensaje extends HttpServlet {
         ArrayList<EstadoSolicitud> estadosSolicitud = new ArrayList<>();
         
         //Captura datos de mensaje
+        System.out.println("Servlet AgregarMensaje -> Captura datos de mensaje");
+        
         todosMensajes = servMensajeImpl.listar(todosMensajes);
         for(int i=0; i<todosMensajes.size(); i++){
             idMensaje = todosMensajes.get(i).getId() + 1;
@@ -90,20 +93,43 @@ public class AgregarMensaje extends HttpServlet {
        
         String mensaje = request.getParameter("mensaje");
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        int us = Integer.parseInt(request.getParameter("usuario"));
+        int us = Integer.parseInt(request.getParameter("userid"));
         
         Date fechaCreacion = stringToDate(fecha.fechaActual());
         
-        String tipoLista = request.getParameter("tipoList");
+        String tipoLista = request.getParameter("listar");
         int list = Integer.parseInt(tipoLista);
         
         //Insertar Mensaje
+        System.out.println("Servlet AgregarMensaje -> Insertar Mensaje");
+        
+        mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
         miMensaje = new Mensaje(idMensaje,mensaje,idSolicitud,us,fechaCreacion);
-        servMensajeImpl.insertar(miMensaje);
+        
+        solicitud = servSolicitudImpl.consultar(idSolicitud);
+        
+        //Evaluar si los dos ultimos son repetidos
+        if( (mensajes.isEmpty())){
+            servMensajeImpl.insertar(miMensaje);
+        } 
+        if(!mensajes.isEmpty()){
+           if((mensajes.get(mensajes.size()-1).getId() < idMensaje) &&
+              (mensajes.get(mensajes.size()-1).getDescripcion().equals(mensaje)) &&
+              (mensajes.get(mensajes.size()-1).getIdSolicitud() == idSolicitud) &&
+              (mensajes.get(mensajes.size()-1).getIdUsuarioComenta() == us) &&
+              (mensajes.get(mensajes.size()-1).getFechaCreacion().equals(fechaCreacion))){
+               System.out.println("Servlet AgregarMensaje -> No Insertar");
+            } else{
+                servMensajeImpl.insertar(miMensaje);
+            }
+        }
+        mensajes.clear();
         
         //Consultar datos
+        System.out.println("Servlet AgregarMensaje -> Consultar datos");
+        
         usuarios = servUsuarioImpl.listar(usuarios);
-        solicitud = servSolicitudImpl.consultar(idSolicitud);
+        
         estadosSolicitud = servListasImpl.listarEstado(estadosSolicitud);
         mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
         tiposSolicitud = servListasImpl.listarTipoSolicitud(tiposSolicitud);
@@ -121,33 +147,31 @@ public class AgregarMensaje extends HttpServlet {
         }
         
         //Actualizar Solicitud
+        System.out.println("Servlet AgregarMensaje -> Actualizar Solicitud");
+        
         solicitud.setFechaModificacion(fechaCreacion);
         servSolicitudImpl.actualizar(solicitud);
         solicitud = servSolicitudImpl.consultar(idSolicitud);
         
         //Enviar datos
+        System.out.println("Servlet AgregarMensaje -> Enviar datos");
         session = request.getSession(true);
         
-        request.setAttribute("us", us);
-        session.setAttribute("us", us);
-        
-        request.setAttribute("list", list);
-        session.setAttribute("list", list);
-        
-        request.setAttribute("tipoSolicitud", tipoSolicitud);
-        session.setAttribute("tipoSolicitud", tipoSolicitud);
-        
-        request.setAttribute("estadoSolicitud", estadoSolicitud);
-        session.setAttribute("estadoSolicitud", estadoSolicitud);
-        
+        request.setAttribute("userid", us);
+        request.setAttribute("listar", list);
         request.setAttribute("mensajes", mensajes);
-        session.setAttribute("mensajes", mensajes);
-        
         request.setAttribute("usuarios", usuarios);
-        session.setAttribute("usuarios", usuarios);
-        
         request.setAttribute("solicitud", solicitud);
+        request.setAttribute("tipoSolicitud", tipoSolicitud);
+        request.setAttribute("estadoSolicitud", estadoSolicitud);
+        
+        session.setAttribute("userid", us);
+        session.setAttribute("listar", list);
+        session.setAttribute("mensajes", mensajes);
+        session.setAttribute("usuarios", usuarios);
         session.setAttribute("solicitud", solicitud);
+        session.setAttribute("tipoSolicitud", tipoSolicitud);
+        session.setAttribute("estadoSolicitud", estadoSolicitud);
         
         request.getRequestDispatcher("VerSolicitud.jsp").forward(request, response);
     }

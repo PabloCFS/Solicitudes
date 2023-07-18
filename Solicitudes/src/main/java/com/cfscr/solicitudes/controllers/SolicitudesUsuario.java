@@ -56,8 +56,10 @@ public class SolicitudesUsuario extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        //Declaracion de variables
+        System.out.println("Servlet SolicitudesUsuario -> Declaracion de variables");
         
         HttpSession session = request.getSession();
         
@@ -66,16 +68,26 @@ public class SolicitudesUsuario extends HttpServlet {
         ArrayList<TipoSolicitud> listTipoSolicitud = new ArrayList<>();
         ArrayList<EstadoSolicitud> listEstSolicitud = new ArrayList<>();
         
+        //Captura de datos
+         System.out.println("Servlet SolicitudesUsuario -> Captura de datos");
+        
         String listar = request.getParameter("listar");
-        String idUsuario = request.getParameter("idUs");
+        String idUsuario = request.getParameter("userid");
         
         int list = Integer.parseInt(listar);
         int us = Integer.parseInt(idUsuario);
         
+        //Consultar datos de lista
+        System.out.println("Servlet SolicitudesUsuario -> Consultar datos de lista");
         //0 - Listar Todas solicitudes
-        //1- Listar todos relacionados un usuario
-        //2- Listar abiertos realacionados a un usuario
-        //3- Listar cerrados relacionados a un usuario
+        //1- Listar todos relacionados a un propietario
+        //2- Listar abiertos relacionados a un propietario
+        //3- Listar cerrados relacionados a un propietario
+        
+        //4 - Listar todo relacionados a un solicitante
+        //5 - Listar abiertos relacionados a un solicitante
+        //6 - Listar cerrados relacionados a un solicitante
+        
         listSolicitud = servSolicitudImpl.listar(listSolicitud, listar, us);
         
         listEstSolicitud = servlistasImpl.listarEstado(listEstSolicitud);
@@ -83,25 +95,23 @@ public class SolicitudesUsuario extends HttpServlet {
         
         listUsuario = servUsuarioImpl.listar(listUsuario);
         
+        //Enviar parametros
+        System.out.println("Servlet SolicitudesUsuario -> Enviar parametros");
         session = request.getSession(true);
                 
-        request.setAttribute("us", us);
-        session.setAttribute("us", us);
-        
-        request.setAttribute("list", list);
-        session.setAttribute("list", list);
-        
-        request.setAttribute("listSolicitud", listSolicitud);
-        session.setAttribute("listSolicitud", listSolicitud);
-        
-        request.setAttribute("listEstSolicitud", listEstSolicitud);
-        session.setAttribute("listEstSolicitud", listEstSolicitud);
-        
-        request.setAttribute("listTipoSolicitud", listTipoSolicitud);
-        session.setAttribute("listTipoSolicitud", listTipoSolicitud);
-        
+        request.setAttribute("userid", us);
+        request.setAttribute("listar", list);
         request.setAttribute("listUsuario", listUsuario);
+        request.setAttribute("listSolicitud", listSolicitud);
+        request.setAttribute("listEstSolicitud", listEstSolicitud);
+        request.setAttribute("listTipoSolicitud", listTipoSolicitud);
+        
+        session.setAttribute("userid", us);
+        session.setAttribute("listar", list);
         session.setAttribute("listUsuario", listUsuario);
+        session.setAttribute("listSolicitud", listSolicitud);
+        session.setAttribute("listEstSolicitud", listEstSolicitud);
+        session.setAttribute("listTipoSolicitud", listTipoSolicitud);
         
         request.getRequestDispatcher("VerSolicitudes.jsp").forward(request, response);
     }

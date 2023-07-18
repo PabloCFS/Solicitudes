@@ -57,6 +57,68 @@ and open the template in the editor.
     max-height: none;
 }
 
+/*-------------------------------TITULO*/
+.containers{
+    display: block;
+    position: static;
+    
+    margin: 0 auto;
+    padding: 0px 0px 0px 0px;
+    
+    width: 98%;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+#labelTitulo{
+    display: block;
+    position: static;
+    
+    margin: 3% 0px 0px 3%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    font-weight: 600;
+    font-size: 220%;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+/*-------------------------------CERRAR SOLICITUD*/
+.DivBtn-closeSolicitud{
+    display: block;
+    position: static;
+    
+    margin: 3% 0px 0px 1%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.btn-outline-warning{
+    color: #FFFFFF;
+    background-color: #21B5EC;
+}
+
+
+/*-------------------------------VER SOLICITUD*/
 .containerVerSolicitud{
     display: block;
     position: static;
@@ -72,7 +134,7 @@ and open the template in the editor.
     min-height: 1px;
     max-height: none;
 }
-/*TABLA=========================================*/
+
 .divTableVerSolicitud{
     display: block;
     position: static;
@@ -108,12 +170,12 @@ and open the template in the editor.
     color: #FFFFFF;
 }
 
-/*CERRAR SOLICITUD==========================*/
-.DivBtn-closeSolicitud{
+/*AGREGAR MENSAJE*****************/
+.divModal{
     display: block;
     position: static;
     
-    margin: 0px 1% 0px 1%;
+    margin: 3% 0px 0px 1%;
     padding: 0px 0px 0px 0px;
     
     width: auto;
@@ -125,28 +187,112 @@ and open the template in the editor.
     max-height: none;
 }
 
-.divCerrarSolicitud{
+.btn-outline-light{
+    color: #FFFFFF;
+    background-color: #21B5EC;
+}
+
+/*----Modal*/
+.modal-header{
+    color: #FFFFFF;
+    background-color: RGB(12, 71, 167);
+}
+
+.form-agregar-Mensaje{
+    background-color: RGB(33, 181, 236, 0.1);
+}
+
+.btn-outline-success{
+    color: #000000;
+    background-color: #B8E8B4;
+}
+
+.btn-outline-danger{
+    color: #000000;
+    background-color: #E8B4B4;
+}
+
+.modal-footer{
+    background-color: RGB(33, 181,236, 0.6);
+}
+
+
+/*VISUALIZAR MENSAJES******************/
+.divMensajes{
+    display: block;
+    position: static;
+    
+    margin: 1% 1% 0px 1%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+}
+
+.divsMensajes{
+    display: block;
+    position: static;
+    
+    margin: 0.5% 0% 0% 0%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    background-color: RGB(187,187,187,0.9);
+    
+    border-radius: 10px;
+}
+
+.divsMensajes-Encabezado{
+    display: flex;
+    position: static;
+    
+    margin: 0% 0% 0% 0%;
+    padding: 0px 0px 0px 0px;
+    
+    width: auto;
+    min-width: 1px;
+    max-width: none;
+    
+    height: auto;
+    min-height: 1px;
+    max-height: none;
+    
+    background-color: RGB(207,207,207,0.9);
+    
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#label-Mensajes-Encabezado{
+    display: block;
+    position: static;
+    
+    margin: 0px 0px 0px 0px;
+    padding: 0.5% 0px 0px 1%;
+
+    font-weight: 300;
+    font-size: 100%;
+    line-height: 100%;
+    color: #000000;
+}
+
+.divsMensajes-Cuerpo{
     display: block;
     position: static;
     
     margin: 0% 0% 0% 0%;
-    padding: 0% 0% 0% 0%;
-    
-    width: auto;
-    min-width: 1px;
-    max-width: none;
-    
-    height: auto;
-    min-height: 1px;
-    max-height: none;
-}
-
-/*AGREGAR MENSAJE******/
-.DivAgregarMensaje{
-   display: block;
-    position: static;
-    
-    margin: 0px 1% 0px 1%;
     padding: 0px 0px 0px 0px;
     
     width: auto;
@@ -158,39 +304,16 @@ and open the template in the editor.
     max-height: none;
 }
 
-.agregar-Mensaje{
+#label-Mensajes-Cuerpo{
     display: block;
     position: static;
     
-    margin: 2% 0% 0% 0%;
-    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0.5% 0px 1.5% 1%;
     
-    width: auto;
-    min-width: 1px;
-    max-width: none;
-    
-    height: auto;
-    min-height: 1px;
-    max-height: none;
-}
-
-.label-nuevoMsj{
     font-weight: 600;
-    font-size: 110%;
+    font-size: 105%;
     line-height: 100%;
-    color: #FFFFFF;
+    color: #000000;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

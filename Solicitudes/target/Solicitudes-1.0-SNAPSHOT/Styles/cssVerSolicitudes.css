@@ -72,6 +72,7 @@ and open the template in the editor.
     max-height: none;
 }
 
+/*-------------------------------TITULO*/
 #labelTitulo{
     display: block;
     position: static;
@@ -88,7 +89,7 @@ and open the template in the editor.
     max-height: none;
     
     font-weight: 600;
-    font-size: 200%;
+    font-size: 220%;
     line-height: 100%;
     color: #FFFFFF;
 }
@@ -138,7 +139,6 @@ and open the template in the editor.
 }
 
 /*-------------------------------MODAL*/
-
 .divModal{
     display: block;
     position: static;
@@ -158,35 +158,6 @@ and open the template in the editor.
 .boton-modal{
     color: #FFFFFF;
     background-color: #6E6E6E;
-}
-
-/*----Modal*/
-.modal-header{
-    color: #FFFFFF;
-    background-color: RGB(12, 71, 167);
-}
-
-.form-NuevaSolicitud{
-   background-color: RGB(33, 181, 236, 0.1);
-}
-
-#tipoDeLista{
-    color: RGB(33, 181, 236, 0.1);
-}
-
-
-.btn-outline-success{
-    color: #000000;
-    background-color: #B8E8B4;
-}
-
-.btn-outline-danger{
-    color: #000000;
-    background-color: #E8B4B4;    
-}
-
-.modal-footer{
-    background-color: RGB(33, 181, 236, 0.6);
 }
 
 /*-------------------------------TABLA*/

@@ -14,6 +14,7 @@ com\cfscr\solicitudes\controllers\SolicitudesUsuario.class
 com\cfscr\solicitudes\service\ServiceUsuarioExt.class
 com\cfscr\solicitudes\service\ServiceMensajeExt.class
 com\cfscr\solicitudes\entities\Solicitud.class
+com\cfscr\solicitudes\controllers\Menu.class
 com\cfscr\solicitudes\entities\EstadoSolicitud.class
 com\cfscr\solicitudes\connection\DAOMensaje.class
 com\cfscr\solicitudes\entities\Rol.class
@@ -24,7 +25,6 @@ com\cfscr\solicitudes\service\ServiceMensajeImpl.class
 com\cfscr\solicitudes\controllers\AgregarSolicitud.class
 com\cfscr\solicitudes\connection\ConexionDB.class
 com\cfscr\solicitudes\controllers\CerrarSolicitud.class
-com\cfscr\solicitudes\controllers\Login.class
 com\cfscr\solicitudes\service\ServiceListas.class
 com\cfscr\solicitudes\entities\Usuario.class
 com\cfscr\solicitudes\connection\DAOUsuarios.class

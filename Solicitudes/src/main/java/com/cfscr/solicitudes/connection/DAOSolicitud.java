@@ -90,6 +90,21 @@ public class DAOSolicitud extends ConexionDB{
                     csta.setInt(1, pIdUsuario);
                     rs = csta.executeQuery();
                     break;
+                case "4":
+                    csta = cn.prepareCall(SQL_LISTAR + "_SOLICITANTE ?");
+                    csta.setInt(1, pIdUsuario);
+                    rs = csta.executeQuery();
+                    break;
+                case "5":
+                    csta = cn.prepareCall(SQL_LISTAR + "_ABIERTAS_SOLICITANTE ?");
+                    csta.setInt(1, pIdUsuario);
+                    rs = csta.executeQuery();
+                    break;
+                case "6":
+                    csta = cn.prepareCall(SQL_LISTAR + "_CERRADAS_SOLICITANTE ?");
+                    csta.setInt(1, pIdUsuario);
+                    rs = csta.executeQuery();
+                    break;
             }
             
             while(rs.next()){

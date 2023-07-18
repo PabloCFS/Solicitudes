@@ -21,7 +21,7 @@
     <body class="body-Menu">
         <%@include file="Templates/Header.jsp"%>
         
-        <%int valor = (Integer) session.getAttribute("id_usuario");%>
+        <%int userid = (Integer) session.getAttribute("userid");%>
         <!-- INICIO CUERPO DE LA PAGINA-->
         <section class="section-MenuPrincipal">
             <container class="container-MenuPrincial">
@@ -31,13 +31,13 @@
                     </form>
 
                     <form class="form-Solicitudes" action="AdmSolicitudes" method="post" name="myForm">
-                        <input type="submit" name="AdmSolicitudes" value="Administración de Solicitudes" class="btn-lg button-form">
+                        <input type="submit" name="AdmSolicitudes" value="Administracion de solicitudes" class="btn-lg button-form">
                     </form>
                                         
                     <form class="form-VerSolicitudes" action="SolicitudesUsuario" method="post" name="myForm">
-                        <input type="hidden" id="idUs" name="idUs" value=<%=valor%>>
+                        <input type="hidden" id="idUs" name="userid" value=<%=userid%>>
                         <input type="hidden" id="listarTodo" name="listar" value="1">
-                        <input type="submit" name="MisSolicitudes" value="Mis Solicitudes" class="btn-lg button-form" id="id-formFinal">
+                        <input type="submit" name="MisSolicitudes" value="Mis solicitudes" class="btn-lg button-form" id="id-formFinal">
                     </form>
                     
                 </div>
