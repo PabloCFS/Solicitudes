@@ -20,6 +20,14 @@
     </head>
     
     <body class="body">
+        
+        <!-- Deshabilitar el boton de regresar en el Login-->
+        <script>
+            window.location.hash="no-back-button";
+            window.location.hash="Again-No-back-button";
+            window.onhashchange=function(){window.location.hash="no-back-button";}
+        </script>
+
         <section id="Main-Section-Login">
             <container class="container">
                 <div class="div-AjustadosA-contenido">
@@ -41,6 +49,7 @@
                             <label class="label">Contrase&ntilde;a</label>
                             <input type="password" class="form-control" required="true" oninvalid="this.setCustomValidity('Ingresa una clave correcta')"
                                    oninput="setCustomValidity('')" name="password" aria-describebody="passHelp"/>
+                            
                             
                             <input type="submit" name="Acceder" value="Acceder" class="boton-submit"/>
                         </form>

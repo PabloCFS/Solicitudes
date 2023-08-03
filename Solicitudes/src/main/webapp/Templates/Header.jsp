@@ -4,6 +4,12 @@
     Author     : pablo.elizondo
 --%>
 
+<%
+    if(session.getAttribute("userid") == null){
+        response.sendRedirect("Login.jsp");
+    }
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="Styles/cssHeader.css">
 
@@ -16,7 +22,7 @@
             </div>
             
             <div class="colum-2 w-col w-col-6 column2-header">
-                <form action="ServletLogout" method="post" name="form">
+                <form action="Logout" method="post" name="form">
                     <button type="submit" name="salir" value="Salir" class="button-submit-exit btn btn-outline-danger">
                         Salir
                     </button>

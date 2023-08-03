@@ -28,6 +28,7 @@ com\cfscr\solicitudes\controllers\CerrarSolicitud.class
 com\cfscr\solicitudes\service\ServiceListas.class
 com\cfscr\solicitudes\entities\Usuario.class
 com\cfscr\solicitudes\connection\DAOUsuarios.class
+com\cfscr\solicitudes\controllers\Logout.class
 com\cfscr\solicitudes\controllers\VerSolicitud.class
 com\cfscr\solicitudes\service\ServiceUsuarioImpl.class
 com\cfscr\solicitudes\service\ServiceSolicitudExt.class

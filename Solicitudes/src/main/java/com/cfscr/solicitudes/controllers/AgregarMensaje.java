@@ -108,18 +108,20 @@ public class AgregarMensaje extends HttpServlet {
         
         solicitud = servSolicitudImpl.consultar(idSolicitud);
         
-        //Evaluar si los dos ultimos son repetidos
-        if( (mensajes.isEmpty())){
+        //Evaluar si los dos ultimos son repetidos || EstadoSolicitud Abierto = 1 || EstadoSolicitud Cerrado = 2
+        if( ( (mensajes.isEmpty()) ) && (solicitud.getEstado() == 1) ){
             servMensajeImpl.insertar(miMensaje);
-        } 
-        if(!mensajes.isEmpty()){
-           if((mensajes.get(mensajes.size()-1).getId() < idMensaje) &&
-              (mensajes.get(mensajes.size()-1).getDescripcion().equals(mensaje)) &&
-              (mensajes.get(mensajes.size()-1).getIdSolicitud() == idSolicitud) &&
-              (mensajes.get(mensajes.size()-1).getIdUsuarioComenta() == us) &&
-              (mensajes.get(mensajes.size()-1).getFechaCreacion().equals(fechaCreacion))){
-               System.out.println("Servlet AgregarMensaje -> No Insertar");
-            } else{
+        }
+        if( (!mensajes.isEmpty()) ){
+           if( (
+                (mensajes.get(mensajes.size()-1).getId() < idMensaje) &&
+                (mensajes.get(mensajes.size()-1).getDescripcion().equals(mensaje)) &&
+                (mensajes.get(mensajes.size()-1).getIdSolicitud() == idSolicitud) &&
+                (mensajes.get(mensajes.size()-1).getIdUsuarioComenta() == us) &&
+                (mensajes.get(mensajes.size()-1).getFechaCreacion().equals(fechaCreacion)) ) ||
+                (solicitud.getEstado() == 2) ){
+                    System.out.println("Servlet AgregarMensaje -> No Insertar");
+            } else {
                 servMensajeImpl.insertar(miMensaje);
             }
         }

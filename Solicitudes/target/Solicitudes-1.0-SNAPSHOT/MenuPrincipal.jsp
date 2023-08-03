@@ -19,9 +19,10 @@
     </head>
     
     <body class="body-Menu">
-        <%@include file="Templates/Header.jsp"%>
-        
         <%int userid = (Integer) session.getAttribute("userid");%>
+        
+         <%@include file="Templates/Header.jsp"%>
+         
         <!-- INICIO CUERPO DE LA PAGINA-->
         <section class="section-MenuPrincipal">
             <container class="container-MenuPrincial">

@@ -23,11 +23,20 @@ public class ConexionDB {
                 + "password=Hola1998;"
                 + "loginTimeout=30;";
         try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            System.out.println("Driver OK");
+            
             Connection con = DriverManager.getConnection(ConexionUrl);
             return con;
+            
         } catch(SQLException ex) {
+            System.out.println("Conexion DB 33 - "+ ex.toString());
             Logger.getLogger(ConexionUrl);
+            
             return null;
+        } catch(ClassNotFoundException e){
+            System.out.println("ConexionDB 38" + e.toString());
         }
+        return null;
     }
 }

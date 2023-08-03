@@ -21,6 +21,7 @@ import java.io.IOException;
  */
 public class Menu extends HttpServlet {
     
+    private static final long serialVersionUID = 1L;
     ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
     
     public Menu(){
@@ -29,6 +30,7 @@ public class Menu extends HttpServlet {
     
     @Override
     public void init(ServletConfig config) throws ServletException {
+        super.init();
         String initial = config.getInitParameter("initial");
         servUsuarioImpl = new ServiceUsuarioImpl();
     }
@@ -43,13 +45,13 @@ public class Menu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         //Declaracion de variables
         int userid;
         String usuario;
         String contrasenia = "";
         String tipoLlamado;
-        
-        HttpSession session = request.getSession();
         
         //Consulta de datos
         tipoLlamado = (request.getParameter("tipoLlamado"));
@@ -68,7 +70,7 @@ public class Menu extends HttpServlet {
         
         //Envio de datos a JSP's
         session = request.getSession(true);
-            
+        
         request.setAttribute("userid", userid);
         session.setAttribute("userid", userid);
            

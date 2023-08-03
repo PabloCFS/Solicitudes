@@ -3,7 +3,7 @@
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
-    <!-- Servlet Login-->
+    <!-- Servlet Menu-->
     <servlet>
         <servlet-name>Menu</servlet-name>
         <servlet-class>com.cfscr.solicitudes.controllers.Menu</servlet-class>
@@ -12,6 +12,7 @@
         <servlet-name>Menu</servlet-name>
         <url-pattern>/Menu</url-pattern>
     </servlet-mapping>
+    
     <!-- Servlet SolicitudesUsuario-->
     <servlet>
         <servlet-name>SolicitudesUsuario</servlet-name>
@@ -21,6 +22,7 @@
         <servlet-name>SolicitudesUsuario</servlet-name>
         <url-pattern>/SolicitudesUsuario</url-pattern>
     </servlet-mapping>
+    
     <!-- Servlet AgergarSolicitud-->
     <servlet>
         <servlet-name>AgregarSolicitud</servlet-name>
@@ -30,6 +32,7 @@
         <servlet-name>AgregarSolicitud</servlet-name>
         <url-pattern>/AgregarSolicitud</url-pattern>
     </servlet-mapping>
+    
     <!-- Servlet VerSolicitud-->
     <servlet>
         <servlet-name>VerSolicitud</servlet-name>
@@ -39,6 +42,7 @@
         <servlet-name>VerSolicitud</servlet-name>
         <url-pattern>/VerSolicitud</url-pattern>
     </servlet-mapping>
+    
     <!-- Servlet AgregarMensaje-->
     <servlet>
         <servlet-name>AgregarMensaje</servlet-name>
@@ -48,6 +52,7 @@
         <servlet-name>AgregarMensaje</servlet-name>
         <url-pattern>/AgregarMensaje</url-pattern>
     </servlet-mapping>
+    
     <!-- Servlet CerrarSolicitud -->
     <servlet>
         <servlet-name>CerrarSolicitud</servlet-name>
@@ -57,9 +62,20 @@
         <servlet-name>CerrarSolicitud</servlet-name>
         <url-pattern>/CerrarSolicitud</url-pattern>
     </servlet-mapping>
+    
+    <!-- Servlet Logout -->
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.cfscr.solicitudes.controllers.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
-            30
+            5
         </session-timeout>
     </session-config>
 </web-app>

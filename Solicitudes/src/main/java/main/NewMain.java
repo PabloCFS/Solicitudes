@@ -5,8 +5,8 @@
  */
 package main;
 
-import com.cfscr.solicitudes.connection.DAOUsuarios;
 import com.cfscr.solicitudes.entities.Usuario;
+import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
 
 /**
  *
@@ -19,9 +19,9 @@ public class NewMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        DAOUsuarios usu = new DAOUsuarios();
-        Usuario usuario = usu.login(117270025, "123");
+        ServiceUsuarioImpl serv = new ServiceUsuarioImpl();
+        //DAOUsuarios usu = new DAOUsuarios();
+        Usuario usuario = serv.login(117270025, "117270025");
         
         System.out.println("Nombre -> " + usuario.getNombre());
         System.out.println("Cedula -> " + usuario.getId());

@@ -20,10 +20,9 @@
     </head>
     
     <body class="body-menu">
-
-        <%@include file="Templates/Header.jsp"%>
-        
         <%@include file="Variables/VarVerSolicitud.jsp"%>
+        
+        <%@include file="Templates/Header.jsp"%>
         
         <!-- INICIO CUERPO DE LA PAGINA -->
         <section class="sectionVerSolicitud">
