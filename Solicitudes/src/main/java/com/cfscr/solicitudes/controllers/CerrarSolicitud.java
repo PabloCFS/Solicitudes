@@ -5,7 +5,7 @@
  */
 package com.cfscr.solicitudes.controllers;
 
-import com.cfscr.solicitudes.logic.Fechas;
+import com.cfscr.solicitudes.fechas.Fechas;
 
 import com.cfscr.solicitudes.entities.Usuario;
 import com.cfscr.solicitudes.entities.Mensaje;
@@ -13,6 +13,8 @@ import com.cfscr.solicitudes.entities.Solicitud;
 import com.cfscr.solicitudes.entities.TipoSolicitud;
 import com.cfscr.solicitudes.entities.EstadoSolicitud;
 
+import com.cfscr.solicitudes.service.ServiceFechaImpl;
+import com.cfscr.solicitudes.service.ServiceCorreoImpl;
 import com.cfscr.solicitudes.service.ServiceListasImpl;
 import com.cfscr.solicitudes.service.ServiceMensajeImpl;
 import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
@@ -36,6 +38,8 @@ import java.sql.Date;
  */
 public class CerrarSolicitud extends HttpServlet {
 
+    ServiceFechaImpl servFechaImpl = new ServiceFechaImpl();
+    ServiceCorreoImpl servCorreoImpl = new ServiceCorreoImpl();
     ServiceListasImpl servListasImpl = new ServiceListasImpl();
     ServiceMensajeImpl servMensajeImpl = new ServiceMensajeImpl();
     ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
@@ -49,6 +53,7 @@ public class CerrarSolicitud extends HttpServlet {
     public void init(ServletConfig config) throws ServletException{
         String initial = config.getInitParameter("initial");
         
+        servCorreoImpl = new ServiceCorreoImpl();
         servListasImpl = new ServiceListasImpl();
         servMensajeImpl = new ServiceMensajeImpl();
         servUsuarioImpl = new ServiceUsuarioImpl();
@@ -73,8 +78,7 @@ public class CerrarSolicitud extends HttpServlet {
         String estadoSolicitud = "";
         
         Solicitud solicitud;
-        Fechas fecha = new Fechas();
-        Date fechaActualiza = stringToDate(fecha.fechaActual());
+        Date fechaActualiza = servFechaImpl.stringToDate(servFechaImpl.fechaActual());
         
         ArrayList<Mensaje> mensajes = new ArrayList<>();
         ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -91,6 +95,9 @@ public class CerrarSolicitud extends HttpServlet {
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         
         int list = Integer.parseInt(tipoLista);
+        
+        String emailSolicitante = "";
+        String emailPropietario = "";
     
         //Cerrar solicitud
         System.out.println("Servlet CerrarSolicitud -> Cerrar solicitud");
@@ -121,6 +128,19 @@ public class CerrarSolicitud extends HttpServlet {
             }
         }
         
+        //Notificación por Correo
+        // 2) Cierre de caso
+        for(int i=0; i<usuarios.size(); i++){
+            if(usuarios.get(i).getId() == solicitud.getIdSolicitante()){
+                emailSolicitante = usuarios.get(i).getEmail();
+            }
+            if(usuarios.get(i).getId() == solicitud.getIdPropietario()){
+                emailPropietario = usuarios.get(i).getEmail();
+            }
+        }
+        servCorreoImpl.enviarCorreo(2, emailPropietario, emailSolicitante, idSolicitud, solicitud.getTitulo());
+        
+        
         //Enviar parametros
         System.out.println("Servlet CerrarSolicitud -> Enviar parametros");
         
@@ -144,11 +164,6 @@ public class CerrarSolicitud extends HttpServlet {
         
         request.getRequestDispatcher("VerSolicitud.jsp").forward(request, response); 
     }
-    
-    private Date stringToDate(String fecha){
-        Date date = Date.valueOf(fecha);
-        return date;
-    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

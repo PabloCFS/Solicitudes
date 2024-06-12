@@ -24,7 +24,7 @@ public class DAOUsuarios extends ConexionDB{
     
     /**INSERTAR USUARIO**/
     public void insertar(Usuario pUsuario){
-        String SQL_INSERTAR = "SP_INSERTAR_USUARIO ?,?,?,?";
+        String SQL_INSERTAR = "SP_INSERTAR_USUARIO ?,?,?,?,?";
         
         try{
             CallableStatement csta = cn.prepareCall(SQL_INSERTAR);
@@ -33,6 +33,7 @@ public class DAOUsuarios extends ConexionDB{
             csta.setString(2,pUsuario.getNombre());
             csta.setInt(3,pUsuario.getRol());
             csta.setString(4,pUsuario.getPassword());
+            csta.setString(5, pUsuario.getEmail());
             
             rs = csta.executeQuery();
         } catch(SQLException ex){
@@ -69,7 +70,7 @@ public class DAOUsuarios extends ConexionDB{
             rs = csta.executeQuery();
             
             while(rs.next()){
-                Usuario usuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"));
+                Usuario usuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"),rs.getString("CORREO"));
                 
                 pUsuario.add(usuario);
             }
@@ -91,7 +92,7 @@ public class DAOUsuarios extends ConexionDB{
             rs = csta.executeQuery();
             
             if(rs.next()){
-                usuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"));
+                usuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"),rs.getString("CORREO"));
             }
             return usuario;
         } catch(SQLException ex){
@@ -102,13 +103,14 @@ public class DAOUsuarios extends ConexionDB{
     
     /*MODIFICAR USUARIO*/
     public boolean actualizar(Usuario pUsuario){
-        String SQL_MODIFICAR = "SP_ACUTALIZAR_USUARIO ?,?,?,?";
+        String SQL_MODIFICAR = "SP_ACUTALIZAR_USUARIO ?,?,?,?,?";
         try{
             CallableStatement csta = cn.prepareCall(SQL_MODIFICAR);
             csta.setInt(1, pUsuario.getId());
             csta.setString(2, pUsuario.getNombre());
             csta.setInt(3, pUsuario.getRol());
             csta.setString(4, pUsuario.getPassword());
+            csta.setString(5,pUsuario.getEmail());
             
             csta.executeQuery();
             
@@ -131,7 +133,7 @@ public class DAOUsuarios extends ConexionDB{
             rs = csta.executeQuery();
             
             if(rs.next()){
-                miUsuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"));
+                miUsuario = new Usuario(rs.getInt("ID_USUARIO"),rs.getString("NOMBRE"),rs.getInt("ID_ROL"),rs.getString("CONTRASENIA"),rs.getString("CORREO"));
             }
             
         } catch(SQLException ex){

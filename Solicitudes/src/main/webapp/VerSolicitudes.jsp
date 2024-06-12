@@ -174,7 +174,7 @@
                                         <input type="hidden" name="userid" value=<%=us%>>
                                         
                                         <button id="botonConsultaSolicitud" type="submit" style="none">
-                                            <%=solicitudHtml.get(i).getTitulo()%>
+                                            <strong><u><%=solicitudHtml.get(i).getTitulo()%></u></strong>
                                         </button>
                                     </form>
                                 </td>

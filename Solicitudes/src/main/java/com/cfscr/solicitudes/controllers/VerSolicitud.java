@@ -106,6 +106,13 @@ public class VerSolicitud extends HttpServlet {
                 estadoSolicitud = estadosSolicitud.get(i).getNombre();
             }
         }
+        /**
+         * 
+         * 
+         * ADJUNTOS
+         * 
+         * 
+         **/
         
         //Enviar parametros
         System.out.println("Servlet VerSolicitud -> Enviar parametros");

@@ -16,6 +16,7 @@
     
     <dependencies>
         
+        <!-- SERVLETS -->
         <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -24,11 +25,20 @@
             <scope>provided</scope>
         </dependency>
         
+        <!-- DB -->
         <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>8.4.0.jre11</version>
+        </dependency>
+        
+        <!-- SEND MAIL -->
+        <!-- https://mvnrepository.com/artifact/org.simplejavamail/simple-java-mail -->
+        <dependency>
+            <groupId>org.simplejavamail</groupId>
+            <artifactId>simple-java-mail</artifactId>
+            <version>8.5.1</version>
         </dependency>
         
     </dependencies>

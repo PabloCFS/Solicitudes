@@ -11,12 +11,12 @@ import com.cfscr.solicitudes.entities.Solicitud;
 import com.cfscr.solicitudes.entities.TipoSolicitud;
 import com.cfscr.solicitudes.entities.EstadoSolicitud;
 
+import com.cfscr.solicitudes.service.ServiceFechaImpl;
+import com.cfscr.solicitudes.service.ServiceCorreoImpl;
 import com.cfscr.solicitudes.service.ServiceListasImpl;
 import com.cfscr.solicitudes.service.ServiceMensajeImpl;
 import com.cfscr.solicitudes.service.ServiceUsuarioImpl;
 import com.cfscr.solicitudes.service.ServiceSolicitudImpl;
-
-import com.cfscr.solicitudes.logic.Fechas;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -35,11 +35,13 @@ import java.sql.Date;
  */
 public class AgregarMensaje extends HttpServlet {
     
+    ServiceFechaImpl servFechaImpl = new ServiceFechaImpl();
+    ServiceCorreoImpl servCorreoImpl = new ServiceCorreoImpl();
     ServiceListasImpl servListasImpl = new ServiceListasImpl();
     ServiceMensajeImpl servMensajeImpl = new ServiceMensajeImpl();
     ServiceUsuarioImpl servUsuarioImpl = new ServiceUsuarioImpl();
     ServiceSolicitudImpl servSolicitudImpl = new ServiceSolicitudImpl();
-
+    
     public AgregarMensaje(){
         super();
     }
@@ -48,6 +50,8 @@ public class AgregarMensaje extends HttpServlet {
     public void init(ServletConfig config) throws ServletException{
         String initial = config.getInitParameter("initial");
         
+        servFechaImpl = new ServiceFechaImpl();
+        servCorreoImpl = new ServiceCorreoImpl();
         servListasImpl = new ServiceListasImpl();
         servMensajeImpl = new ServiceMensajeImpl();
         servUsuarioImpl = new ServiceUsuarioImpl();
@@ -74,7 +78,6 @@ public class AgregarMensaje extends HttpServlet {
         String estadoSolicitud = "";
         
         Solicitud solicitud;
-        Fechas fecha = new Fechas();
         Mensaje miMensaje = new Mensaje();
         
         ArrayList<Mensaje> mensajes = new ArrayList<>();
@@ -95,12 +98,15 @@ public class AgregarMensaje extends HttpServlet {
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         int us = Integer.parseInt(request.getParameter("userid"));
         
-        Date fechaCreacion = stringToDate(fecha.fechaActual());
+        Date fechaCreacion = servFechaImpl.stringToDate(servFechaImpl.fechaActual());
         
         String tipoLista = request.getParameter("listar");
         int list = Integer.parseInt(tipoLista);
         
-        //Insertar Mensaje
+        String emailSolicitante = "";
+        String emailPropietario = "";
+        
+        //Insertar Mensaje && Enviar Correo
         System.out.println("Servlet AgregarMensaje -> Insertar Mensaje");
         
         mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
@@ -109,8 +115,22 @@ public class AgregarMensaje extends HttpServlet {
         solicitud = servSolicitudImpl.consultar(idSolicitud);
         
         //Evaluar si los dos ultimos son repetidos || EstadoSolicitud Abierto = 1 || EstadoSolicitud Cerrado = 2
+        // 3) Agregar Comentario
+        usuarios = servUsuarioImpl.listar(usuarios);
+        
+        for(int i=0; i<usuarios.size(); i++){
+            if(usuarios.get(i).getId() == solicitud.getIdPropietario()){
+                emailPropietario = usuarios.get(i).getEmail();
+            }
+            
+            if(usuarios.get(i).getId() == solicitud.getIdSolicitante()){
+                emailSolicitante = usuarios.get(i).getEmail();
+            }
+        }
+        
         if( ( (mensajes.isEmpty()) ) && (solicitud.getEstado() == 1) ){
             servMensajeImpl.insertar(miMensaje);
+            servCorreoImpl.enviarCorreo(3, emailPropietario, emailSolicitante, idSolicitud, solicitud.getTitulo());
         }
         if( (!mensajes.isEmpty()) ){
            if( (
@@ -123,14 +143,13 @@ public class AgregarMensaje extends HttpServlet {
                     System.out.println("Servlet AgregarMensaje -> No Insertar");
             } else {
                 servMensajeImpl.insertar(miMensaje);
-            }
+                servCorreoImpl.enviarCorreo(3, emailPropietario, emailSolicitante, idSolicitud, solicitud.getTitulo());
+           }
         }
         mensajes.clear();
         
         //Consultar datos
         System.out.println("Servlet AgregarMensaje -> Consultar datos");
-        
-        usuarios = servUsuarioImpl.listar(usuarios);
         
         estadosSolicitud = servListasImpl.listarEstado(estadosSolicitud);
         mensajes = servMensajeImpl.listarMensajes(mensajes, idSolicitud);
@@ -177,12 +196,7 @@ public class AgregarMensaje extends HttpServlet {
         
         request.getRequestDispatcher("VerSolicitud.jsp").forward(request, response);
     }
-    
-    //Funcion para pasar de String a Date
-    private Date stringToDate(String fecha){
-        Date date = Date.valueOf(fecha);
-        return date;
-    }
+
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

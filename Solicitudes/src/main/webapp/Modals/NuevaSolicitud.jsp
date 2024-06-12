@@ -12,7 +12,7 @@
             </div>
             
             <!-- FORM -->
-            <form class="form-NuevaSolicitud" action="AgregarSolicitud" method="post" name="myForm">
+            <form class="form-NuevaSolicitud" action="AgregarSolicitud" method="post" name="myForm" enctype="multipart/form-data">
                 <div class="modal-body">
                     <label class="col-form-label"><Strong>Solicitud</strong></label>
                     <input type="text" class="form-control" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ,/\-()]+$" title="Solo digitar letras" maxlength="50" required="true" placeholder="Título" id="tituloSolicitud" name="tituloSolicitud"/>
@@ -29,18 +29,22 @@
                     <label class="col-form-label"><Strong>Descripci&oacute;n</Strong></label>
                     <textarea class="form-control" aria-label="With textarea" required="true" name="Descripcion" id="Descripcion"></textarea>
                     
-                    <label class="col-form-control"><Strong>Asignar A:</Strong></label>
+                    <label class="col-form-label"><Strong>Asignar A:</Strong></label>
                     <select class="form-select" required="true" name="AsignarA" id="AsignarA">
                         <% for(int i=0; i<usuarioHtml.size(); i++){ %>
                             <option value=<%=usuarioHtml.get(i).getId()%>><%=usuarioHtml.get(i).getNombre()%></option>
                         <%}%>
                     </select>
                     
+                    <!-- SUBIR UN ARCHIVO-->
+                    <label class="col-form-label"><strong>Adjuntar un archivo | Max. 5MB</strong></label><br>
+                    <input type="file" id="subeArchivo" name="subeArchivo"></input>
+                    
                     <input type="hidden" id="tipoList" name="listar" value=<%=list%>>
                 </div>
                                     
                 <div class="modal-footer">
-                    <button id="btnNuevaSolicitud" type="submit" class="btn btn-outline-success">Aceptar</button>
+                    <button id="btnNuevaSolicitud" type="submit" value="Upload" class="btn btn-outline-success">Aceptar</button>
                     <button id="btnNoModificarSolicitud" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>

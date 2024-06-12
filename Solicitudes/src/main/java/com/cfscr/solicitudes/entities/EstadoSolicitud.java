@@ -23,8 +23,8 @@ public class EstadoSolicitud {
         this.nombre = pNombre;
     }
 
-    public void setId(int id) { this.id = id; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setId(int pId) { this.id = pId; }
+    public void setNombre(String pNombre) { this.nombre = pNombre; }
 
     public int getId() { return this.id; }
     public String getNombre() { return this.nombre; }

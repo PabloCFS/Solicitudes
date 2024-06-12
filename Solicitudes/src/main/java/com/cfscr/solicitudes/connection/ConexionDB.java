@@ -15,27 +15,26 @@ import java.util.logging.Logger;
  * @author pablo.elizondo
  */
 public class ConexionDB {
-    
-    public static Connection getConnection(){
-        String ConexionUrl = "jdbc:sqlserver://PABLOELIZONDOPC:1433;"
+    public static Connection getConnection() {
+        String ConexionUrl = "jdbc:sqlserver://PabloE-PC:1433;"
                 + "databaseName=DB_SOLICITUDES;"
                 + "user=sa;"
                 + "password=Hola1998;"
                 + "loginTimeout=30;";
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            System.out.println("Driver OK");
+            
+            //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
             
             Connection con = DriverManager.getConnection(ConexionUrl);
             return con;
-            
         } catch(SQLException ex) {
-            System.out.println("Conexion DB 33 - "+ ex.toString());
+            System.out.println("Conexion DB 32 - "+ ex.toString());
             Logger.getLogger(ConexionUrl);
             
             return null;
         } catch(ClassNotFoundException e){
-            System.out.println("ConexionDB 38" + e.toString());
+            System.out.println("Conexion 35 " + e.toString());
         }
         return null;
     }
